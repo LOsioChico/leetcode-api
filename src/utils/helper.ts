@@ -110,7 +110,7 @@ class Helper {
     }
   }
 
-  static async HttpRequest(options: HttpRequestOptions): Promise<any> {
+  static async HttpRequest(options: HttpRequestOptions): Promise<Response> {
     return await fetch(options.url, {
       method: options.method || "GET",
       headers: {

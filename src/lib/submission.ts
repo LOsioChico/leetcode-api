@@ -22,7 +22,7 @@ class Submission {
   async detail(): Promise<Submission> {
     const response = await Helper.HttpRequest({
       url: Submission.uris.submission.replace("$id", this.id.toString()),
-    });
+    }).then((r) => r.json());
     this.lang = response.match(/getLangDisplay:\s'([^']*)'/)[1];
     this.memory = response.match(/memory:\s'([^']*)'/)[1];
     this.runtime = response.match(/runtime:\s'([^']*)'/)[1];

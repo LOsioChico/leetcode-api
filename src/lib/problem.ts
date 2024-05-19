@@ -142,7 +142,7 @@ class Problem {
         question_id: this.id,
         typed_code: code,
       },
-    });
+    }).then((r) => r.json());
     return new Submission(JSON.parse(response).submission_id);
   }
 }

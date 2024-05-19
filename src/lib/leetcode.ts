@@ -41,7 +41,7 @@ class Leetcode {
       resolveWithFullResponse: true,
     });
     const token: string = Helper.parseCookie(
-      response.headers["set-cookie"],
+      response.headers.getSetCookie(),
       "csrftoken",
     );
     // Leetcode CN return null here, but it's does not matter
@@ -63,11 +63,11 @@ class Leetcode {
         resolveWithFullResponse: true,
       });
       const session = Helper.parseCookie(
-        _response.headers["set-cookie"],
+        _response.headers.getSetCookie(),
         "LEETCODE_SESSION",
       );
       const csrfToken = Helper.parseCookie(
-        _response.headers["set-cookie"],
+        _response.headers.getSetCookie(),
         "csrftoken",
       );
       credit = {
