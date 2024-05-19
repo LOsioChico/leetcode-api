@@ -25,7 +25,7 @@ class Problem {
 
     public sampleTestCase?: string,
     public content?: string,
-    public codeSnippets?: Array<any>
+    public codeSnippets?: Array<any>,
   ) {}
 
   async detail(): Promise<Problem> {
@@ -125,8 +125,8 @@ class Problem {
             s.memory,
             s.runtime,
             Helper.submissionStatusMap(s.statusDisplay),
-            Number(s.timestamp)
-          )
+            Number(s.timestamp),
+          ),
         );
       });
     }
