@@ -86,6 +86,16 @@ class Helper {
         return SubmissionStatus["Compile Error"];
       case "Time Limit Exceeded":
         return SubmissionStatus["Time Limit Exceeded"];
+      case "Memory Limit Exceeded":
+        return SubmissionStatus["Memory Limit Exceeded"];
+      case "Output Limit Exceeded":
+        return SubmissionStatus["Output Limit Exceeded"];
+      case "Runtime Error":
+        return SubmissionStatus["Runtime Error"];
+      case "Internal Error":
+        return SubmissionStatus["Internal Error"];
+      case "Timeout":
+        return SubmissionStatus["Timeout"];
       case "Wrong Answer":
         return SubmissionStatus["Wrong Answer"];
 
@@ -93,18 +103,22 @@ class Helper {
         return SubmissionStatus["Accepted"];
       case "11":
         return SubmissionStatus["Wrong Answer"];
+      case "12":
+        return SubmissionStatus["Memory Limit Exceeded"];
+      case "13":
+        return SubmissionStatus["Output Limit Exceeded"];
       case "14":
         return SubmissionStatus["Time Limit Exceeded"];
+      case "15":
+        return SubmissionStatus["Runtime Error"];
+      case "16":
+        return SubmissionStatus["Internal Error"];
       case "20":
         return SubmissionStatus["Compile Error"];
+      case "30":
+        return SubmissionStatus["Timeout"];
       // TODO : find out what this numbers mean
-      // 12 => MLE
-      // 13 => OLE
-      // 15 => RE
-      // 16 => IE
       // 21 => UE
-      // 30 => TO
-      // default => UE
       default:
         return SubmissionStatus["Wrong Answer"];
     }
@@ -115,10 +129,10 @@ class Helper {
       method: options.method || "GET",
       headers: {
         Cookie: Helper.credit
-          ? `LEETCODE_SESSION=${Helper.credit.session};csrftoken=${Helper.credit.csrfToken}`
+          ? `LEETCODE_SESSION=${Helper.credit.session}; csrftoken=${Helper.credit.csrfToken};`
           : "",
-        "X-Requested-With": "XMLHttpRequest",
         "X-CSRFToken": Helper.credit ? Helper.credit.csrfToken : "",
+        "X-Requested-With": "XMLHttpRequest",
         Referer: options.referer || Helper.uris.base,
         "upgrade-insecure-requests": "1",
       },

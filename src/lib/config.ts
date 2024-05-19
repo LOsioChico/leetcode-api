@@ -7,7 +7,6 @@ export default {
       problemsAll: "https://leetcode.com/api/problems/all/",
       problem: "https://leetcode.com/problems/$slug",
       submit: "https://leetcode.com/problems/$slug/submit/",
-      submission: "https://leetcode.com/submissions/detail/$id/",
     },
     cn: {
       base: "https://leetcode-cn.com/",
@@ -16,7 +15,6 @@ export default {
       problemsAll: "https://leetcode-cn.com/api/problems/all/",
       problem: "https://leetcode-cn.com/problems/$slug",
       submit: "https://leetcode-cn.com/problems/$slug/submit/",
-      submission: "https://leetcode-cn.com/submissions/detail/$id/",
     },
   },
 };

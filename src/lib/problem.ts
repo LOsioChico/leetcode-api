@@ -1,5 +1,10 @@
 import Helper from "../utils/helper";
-import { ProblemDifficulty, ProblemStatus, Uris } from "../utils/interfaces";
+import {
+  ProblemDifficulty,
+  ProblemStatus,
+  SubmissionStatus,
+  Uris,
+} from "../utils/interfaces";
 import Submission from "./submission";
 
 class Problem {
@@ -94,14 +99,26 @@ class Problem {
                         lastKey
                         hasNext
                         submissions {
+                          id
+                          title
+                          titleSlug
+                          statusDisplay
+                          lang
+                          langName
+                          runtime
+                          timestamp
+                          url
+                          isPending
+                          memory
+                          hasNotes
+                          notes
+                          flagType
+                          topicTags {
                             id
-                            statusDisplay
-                            lang
-                            runtime
-                            timestamp
-                            url
-                            isPending
-                            memory
+                            name
+                            slug
+                            translatedName
+                          }
                         }
                     }
                 }
@@ -113,20 +130,31 @@ class Problem {
         },
       });
 
-      hasNext = response.submissionList.hasNext;
-      const submission: Array<any> = response.submissionList.submissions;
-      offet += submission.length;
+      hasNext = response.submissionList.hasNext || false;
+      const submission: Array<any> = response.submissionList.submissions || [];
+      offet += submission?.length || 0;
       submission.map((s) => {
         submissions.push(
-          new Submission(
-            Number(s.id),
-            s.isPending,
-            s.lang,
-            s.memory,
-            s.runtime,
-            Helper.submissionStatusMap(s.statusDisplay),
-            Number(s.timestamp),
-          ),
+          new Submission({
+            id: Number(s.id),
+            title: s.title,
+            titleSlug: s.titleSlug,
+            status: Helper.submissionStatusMap(
+              s.statusDisplay,
+            ) as SubmissionStatus,
+            statusDisplay: s.statusDisplay,
+            lang: s.lang,
+            langName: s.langName,
+            runtime: s.runtime,
+            timestamp: Number(s.timestamp),
+            url: s.url,
+            isPending: s.isPending,
+            memory: s.memory,
+            hasNotes: s.hasNotes,
+            notes: s.notes,
+            flagType: s.flagType,
+            topicTags: s.topicTags,
+          }),
         );
       });
     }
@@ -143,7 +171,10 @@ class Problem {
         typed_code: code,
       },
     }).then((r) => r.json());
-    return new Submission(JSON.parse(response).submission_id);
+
+    const submission = new Submission(response.submission_id);
+    submission.setId(response.submission_id);
+    return submission;
   }
 }
 

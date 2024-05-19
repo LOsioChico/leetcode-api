@@ -13,19 +13,20 @@ import {
 describe("# Submission", async function () {
   this.enableTimeouts(false);
   let submission: Submission;
+
   before(async () => {
     Dotenv.config();
-    const leetcode: Leetcode = await Leetcode.build(
-      process.env.LEETCODE_USERNAME || "",
-      process.env.LEETCODE_PASSWORD || "",
+    const leetcode: Leetcode = new Leetcode(
+      process.env.LEETCODE_SESSION || "",
+      process.env.LEETCODE_CSRFTOKEN || "",
       process.env.LEETCODE_ENDPOINT === "CN" ? EndPoint.CN : EndPoint.US,
     );
     const problems: Array<Problem> = await leetcode.getAllProblems();
-    const acceptedProblems: Array<Problem> = problems.filter((p: Problem) => {
-      return p.status === ProblemStatus.Accept;
+    const startedProblems: Array<Problem> = problems.filter((p: Problem) => {
+      return p.status !== ProblemStatus["Not Start"];
     });
     const submissions: Array<Submission> =
-      await acceptedProblems[0].getSubmissions();
+      await startedProblems[0].getSubmissions();
     submission = submissions[0];
     await submission.detail();
   });
@@ -38,8 +39,8 @@ describe("# Submission", async function () {
     expect(submission.id).to.be.an("number");
     expect(submission.isPending).to.be.a("string");
     expect(submission.lang).to.be.a("string");
-    expect(submission.memory).to.be.a("string");
-    expect(submission.runtime).to.be.a("string");
+    expect(submission.memory).to.be.a("number");
+    expect(submission.runtime).to.be.a("number");
     expect(submission.status).to.be.oneOf([
       SubmissionStatus["Accepted"],
       SubmissionStatus["Compile Error"],

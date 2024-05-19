@@ -11,9 +11,19 @@ class Leetcode {
     Leetcode.uris = uris;
   }
 
-  constructor(credit: Credit) {
-    this.session = credit.session;
-    this.csrfToken = credit.csrfToken;
+  constructor(session: string, csrfToken: string, endpoint?: EndPoint) {
+    this.session = session;
+    this.csrfToken = csrfToken;
+    this.configure(endpoint);
+  }
+
+  configure(endpoint?: EndPoint): void {
+    Helper.setCredit({
+      session: this.session,
+      csrfToken: this.csrfToken,
+    });
+
+    Helper.switchEndPoint(endpoint || EndPoint.US);
   }
 
   get credit(): Credit {
@@ -21,65 +31,6 @@ class Leetcode {
       session: this.session,
       csrfToken: this.csrfToken,
     };
-  }
-
-  static async build(
-    username: string,
-    password: string,
-    endpoint: EndPoint,
-  ): Promise<Leetcode> {
-    Helper.switchEndPoint(endpoint);
-    const credit: Credit = await this.login(username, password);
-    Helper.setCredit(credit);
-    return new Leetcode(credit);
-  }
-
-  static async login(username: string, password: string): Promise<Credit> {
-    // got login token first
-    const response = await Helper.HttpRequest({
-      url: Leetcode.uris.login,
-      resolveWithFullResponse: true,
-    });
-    const token: string = Helper.parseCookie(
-      response.headers.getSetCookie(),
-      "csrftoken",
-    );
-    // Leetcode CN return null here, but it's does not matter
-    let credit: Credit = {
-      csrfToken: token,
-    };
-    Helper.setCredit(credit);
-
-    // then login
-    try {
-      const _response = await Helper.HttpRequest({
-        method: "POST",
-        url: Leetcode.uris.login,
-        form: {
-          csrfmiddlewaretoken: token,
-          login: username,
-          password: password,
-        },
-        resolveWithFullResponse: true,
-      });
-      const session = Helper.parseCookie(
-        _response.headers.getSetCookie(),
-        "LEETCODE_SESSION",
-      );
-      const csrfToken = Helper.parseCookie(
-        _response.headers.getSetCookie(),
-        "csrftoken",
-      );
-      credit = {
-        session: session,
-        csrfToken: csrfToken,
-      };
-    } catch (e) {
-      if (e instanceof Error) {
-        throw new Error("Login Fail");
-      }
-    }
-    return credit;
   }
 
   async getProfile(): Promise<any> {

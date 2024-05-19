@@ -13,11 +13,12 @@ import {
 describe("# Problem", async function () {
   this.enableTimeouts(false);
   const problem: Problem = new Problem("two-sum");
+
   before(async () => {
     Dotenv.config();
-    await Leetcode.build(
-      process.env.LEETCODE_USERNAME || "",
-      process.env.LEETCODE_PASSWORD || "",
+    new Leetcode(
+      process.env.LEETCODE_SESSION || "",
+      process.env.LEETCODE_CSRFTOKEN || "",
       process.env.LEETCODE_ENDPOINT === "CN" ? EndPoint.CN : EndPoint.US,
     );
     await problem.detail();
@@ -52,13 +53,17 @@ describe("# Problem", async function () {
     expect(problem.content).to.be.a("string");
     expect(problem.codeSnippets).to.be.an("array");
   });
+
   it("Could get submissions", async () => {
     const submissions: Array<Submission> = await problem.getSubmissions();
     expect(submissions).to.be.a("array");
   });
 
   it("Could submit solution", async () => {
-    const submission = await problem.submit("cpp", "test code here");
+    const submission = await problem.submit(
+      "cpp",
+      "class Solution {\npublic:\n    vector<int> twoSum(vector<int>& nums, int target) {\n        \n    }\n};",
+    );
     setTimeout(async () => {
       await submission.detail();
       expect(submission.status).to.be.a("number");

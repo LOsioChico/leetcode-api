@@ -1,65 +1,76 @@
-interface HttpRequestOptions {
+export interface HttpRequestOptions {
   method?: string;
   url: string;
   referer?: string;
-  resolveWithFullResponse?: boolean;
-  form?: any;
   body?: any;
 }
 
-interface GraphQLRequestOptions {
+export interface GraphQLRequestOptions {
   origin?: string;
   referer?: string;
   query: string;
   variables?: object;
 }
 
-interface Credit {
+export interface Credit {
   session?: string;
   csrfToken: string;
 }
 
-enum ProblemStatus {
+export enum ProblemStatus {
   "Accept",
   "Not Accept",
   "Not Start",
 }
 
-enum ProblemDifficulty {
+export enum ProblemDifficulty {
   "Easy",
   "Medium",
   "Hard",
 }
 
-enum SubmissionStatus {
+export enum SubmissionStatus {
   "Accepted",
   "Compile Error",
   "Wrong Answer",
   "Time Limit Exceeded",
+  "Memory Limit Exceeded",
+  "Output Limit Exceeded",
+  "Runtime Error",
+  "Internal Error",
+  "Timeout",
 }
 
-enum EndPoint {
+export enum EndPoint {
   "US",
   "CN",
 }
 
-interface Uris {
+export interface Uris {
   base: string;
   login: string;
   graphql: string;
   problemsAll: string;
   problem: string;
   submit: string;
-  submission: string;
 }
 
-export {
-  HttpRequestOptions,
-  GraphQLRequestOptions,
-  Credit,
-  ProblemStatus,
-  ProblemDifficulty,
-  SubmissionStatus,
-  EndPoint,
-  Uris,
+export type SubmissionConstructor = {
+  id: number;
+  title: string;
+  titleSlug: string;
+  status: SubmissionStatus;
+  statusDisplay: string;
+  lang: string;
+  langName: string;
+  runtime: number;
+  timestamp: number;
+  url: string;
+  isPending: boolean;
+  memory: number;
+  hasNotes: boolean;
+  notes: string;
+  flagType: string;
+  topicTags: Array<string>;
+  code?: string;
 };
