@@ -10,9 +10,8 @@
     "promise"
   ],
   "author": {
-    "name": "VEct0r",
-    "email": "twskec@gmail.com",
-    "url": "https://vect0r.me"
+    "name": "Luis Osio Chico",
+    "email": "losio@unal.edu.co"
   },
   "license": "MIT",
   "main": "dist/index.js",
