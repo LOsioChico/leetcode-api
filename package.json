@@ -33,9 +33,13 @@
     "build": "rm -rf dist && tsc -p tsconfig.json",
     "start": "node dist",
     "lint": "eslint src --ext .ts",
-    "test": "./node_modules/.bin/mocha -r ./node_modules/ts-node/register test/**/*.ts"
+    "test": "mocha -r ./node_modules/ts-node/register test/**/*.ts",
+    "test:leetcode": "mocha -r ./node_modules/ts-node/register test/leetcode.ts",
+    "test:problem": "mocha -r ./node_modules/ts-node/register test/problem.ts",
+    "test:submission": "mocha -r ./node_modules/ts-node/register test/submission.ts"
   },
   "devDependencies": {
+    "@types/node": "^20.12.12",
     "@types/chai": "^4.2.0",
     "@types/dotenv": "^6.1.1",
     "@types/mocha": "^5.2.7",
