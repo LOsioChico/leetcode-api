@@ -87,13 +87,13 @@ class Leetcode {
     const response: any = await Helper.GraphQLRequest({
       query: `
             {
-                user {
+                userStatus {
                     username
                 }
             }
             `,
     });
-    return response.user;
+    return response.userStatus;
   }
 
   async getAllProblems(): Promise<Array<Problem>> {
