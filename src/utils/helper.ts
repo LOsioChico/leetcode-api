@@ -1,5 +1,4 @@
 import { GraphQLClient } from "graphql-request";
-import Request from "request-promise-native";
 import Config from "../lib/config";
 import Leetcode from "../lib/leetcode";
 import Problem from "../lib/problem";
@@ -112,10 +111,8 @@ class Helper {
   }
 
   static async HttpRequest(options: HttpRequestOptions): Promise<any> {
-    return await Request({
+    return await fetch(options.url, {
       method: options.method || "GET",
-      uri: options.url,
-      followRedirect: false,
       headers: {
         Cookie: Helper.credit
           ? `LEETCODE_SESSION=${Helper.credit.session};csrftoken=${Helper.credit.csrfToken}`
@@ -123,10 +120,9 @@ class Helper {
         "X-Requested-With": "XMLHttpRequest",
         "X-CSRFToken": Helper.credit ? Helper.credit.csrfToken : "",
         Referer: options.referer || Helper.uris.base,
+        "upgrade-insecure-requests": "1",
       },
-      resolveWithFullResponse: options.resolveWithFullResponse || false,
-      form: options.form || null,
-      body: JSON.stringify(options.body) || "",
+      body: JSON.stringify(options.body) || null,
     });
   }
 

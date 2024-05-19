@@ -1,4 +1,3 @@
-import { StatusCodeError } from "request-promise-native/errors";
 import Helper from "../utils/helper";
 import { Credit, EndPoint, Uris } from "../utils/interfaces";
 import Problem from "./problem";
@@ -76,7 +75,7 @@ class Leetcode {
         csrfToken: csrfToken,
       };
     } catch (e) {
-      if (e instanceof StatusCodeError) {
+      if (e instanceof Error) {
         throw new Error("Login Fail");
       }
     }
@@ -98,10 +97,9 @@ class Leetcode {
   }
 
   async getAllProblems(): Promise<Array<Problem>> {
-    let response = await Helper.HttpRequest({
+    const response = await Helper.HttpRequest({
       url: Leetcode.uris.problemsAll,
-    });
-    response = JSON.parse(response);
+    }).then((r) => r.json());
     const problems: Array<Problem> = response.stat_status_pairs.map(
       (p: any) => {
         return new Problem(
