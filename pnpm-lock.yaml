@@ -30,6 +30,9 @@ importers:
       '@types/node':
         specifier: ^20.12.12
         version: 20.12.12
+      '@types/web':
+        specifier: ^0.0.146
+        version: 0.0.146
       '@typescript-eslint/eslint-plugin':
         specifier: ^2.0.0
         version: 2.34.0(@typescript-eslint/parser@2.34.0(eslint@6.8.0)(typescript@3.9.10))(eslint@6.8.0)(typescript@3.9.10)
@@ -165,6 +168,9 @@ packages:
 
   '@types/semver@7.5.8':
     resolution: {integrity: sha512-I8EUhyrgfLrcTkzV3TSsGyl1tSuPrEDzr0yd5m90UgNxQkyDXULk3b6MlQqTCpZpNtWe1K0hzclnZkTcLBe2UQ==}
+
+  '@types/web@0.0.146':
+    resolution: {integrity: sha512-GdhkzZelBsk6DsBodA2q/43HexfRQwHkFpq9htFRS1/OXc/ox1ucxteW9TVaNQZB89WVj3w8K03Cq/NdvXfXjw==}
 
   '@typescript-eslint/eslint-plugin@2.34.0':
     resolution: {integrity: sha512-4zY3Z88rEE99+CNvTbXSyovv2z9PNOVffTWD2W8QF5s2prBQtwN2zadqERcrHpcR7O/+KMI3fcTAmUUhK/iQcQ==}
@@ -1597,6 +1603,8 @@ snapshots:
       undici-types: 5.26.5
 
   '@types/semver@7.5.8': {}
+
+  '@types/web@0.0.146': {}
 
   '@typescript-eslint/eslint-plugin@2.34.0(@typescript-eslint/parser@2.34.0(eslint@6.8.0)(typescript@3.9.10))(eslint@6.8.0)(typescript@3.9.10)':
     dependencies:
