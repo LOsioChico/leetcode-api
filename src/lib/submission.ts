@@ -134,7 +134,7 @@ class Submission {
     this.titleSlug = submission.question.titleSlug;
     this.lang = submission.lang.name;
     this.langName = submission.lang.verboseName;
-    this.memory = submission.memory;
+    this.memory = submission.memory || 0;
     this.runtime = submission.runtime;
     this.status = Helper.submissionStatusMap(submission.statusCode);
     this.statusDisplay = submission.runtimeDisplay;
