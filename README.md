@@ -18,9 +18,9 @@
 ```typescript
 (async (): Promise<void> => {
   // Login
-  const leetcode: Leetcode = await Leetcode.build(
-    "your username",
-    "yout password",
+  const leetcode: Leetcode = new Leetcode(
+    "your session",
+    "your csrf token",
     EndPoint.US, // or EndPoint.CN
   );
 
